@@ -1,0 +1,166 @@
+/* ===== Variables de color (tema oscuro) ===== */
+:root {
+  --fondo: #0b1020;
+  --panel: #131a2e;
+  --panel-claro: #1b2440;
+  --borde: #263156;
+  --texto: #e6e9f5;
+  --texto-suave: #9aa4c7;
+  --acento: #38bdf8;
+  --acento-oscuro: #0ea5e9;
+  --error: #f87171;
+  --radio: 18px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  color: var(--texto);
+  background: radial-gradient(circle at 20% 0%, #1a2550 0%, var(--fondo) 60%);
+}
+
+/* ===== Contenedor principal ===== */
+.contenedor {
+  width: 100%;
+  max-width: 760px;
+  height: min(86dvh, 760px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== Zona de chat ===== */
+.zona-de-chat {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px;
+  scroll-behavior: smooth;
+}
+
+.zona-de-chat::-webkit-scrollbar { width: 8px; }
+.zona-de-chat::-webkit-scrollbar-thumb { background: var(--borde); border-radius: 8px; }
+
+/* ===== Burbujas de mensajes ===== */
+.burbuja {
+  max-width: 80%;
+  padding: 10px 14px;
+  line-height: 1.45;
+  font-size: 0.96rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  animation: aparecer 0.25s ease;
+}
+
+.burbuja.usuario {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--acento-oscuro), var(--acento));
+  color: #06202e;
+  border-radius: var(--radio) var(--radio) 4px var(--radio);
+}
+
+.burbuja.agente {
+  align-self: flex-start;
+  background: var(--panel-claro);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio) var(--radio) var(--radio) 4px;
+}
+
+.burbuja.error {
+  align-self: flex-start;
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: var(--radio) var(--radio) var(--radio) 4px;
+}
+
+/* Estado "cargando": tres puntos animados */
+.burbuja.cargando { display: flex; gap: 5px; align-items: center; }
+.burbuja.cargando span {
+  width: 8px; height: 8px;
+  background: var(--texto-suave);
+  border-radius: 50%;
+  animation: pulso 1.2s infinite ease-in-out;
+}
+.burbuja.cargando span:nth-child(2) { animation-delay: 0.2s; }
+.burbuja.cargando span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulso {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Ingreso de datos ===== */
+.ingreso-de-datos {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  padding: 10px;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+.ingreso-de-datos:focus-within { border-color: var(--acento); }
+
+.campo-mensaje {
+  flex: 1;
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.96rem;
+  padding: 6px;
+}
+
+.campo-mensaje::placeholder { color: var(--texto-suave); }
+
+.boton-enviar {
+  align-self: flex-end;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--acento-oscuro), var(--acento));
+  color: #06202e;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.boton-enviar:hover:not(:disabled) { transform: translateY(-1px); }
+.boton-enviar:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ===== Responsive (celular) ===== */
+@media (max-width: 600px) {
+  body { padding: 0; }
+  .contenedor {
+    height: 100dvh;
+    max-width: 100%;
+    border-radius: 0;
+    border: none;
+    padding: 12px;
+  }
+  .burbuja { max-width: 90%; }
+  .boton-enviar { padding: 10px 14px; }
+}

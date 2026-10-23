@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultor de agente de viaje</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="contenedor">
+
+    <!-- Zona de chat: acá aparecen las burbujas del usuario y del agente -->
+    <section id="zona-de-chat" class="zona-de-chat" aria-live="polite" aria-label="Zona de chat"></section>
+
+    <!-- Ingreso de datos: campo de texto y botón de envío -->
+    <form id="ingreso-de-datos" class="ingreso-de-datos" autocomplete="off">
+      <textarea
+        id="campo-mensaje"
+        class="campo-mensaje"
+        rows="2"
+        maxlength="1000"
+        placeholder="Contame qué destino te interesa..."
+        aria-label="Ingreso de datos"
+      ></textarea>
+      <button id="boton-enviar" class="boton-enviar" type="submit">Enviar</button>
+    </form>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
